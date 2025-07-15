@@ -73,5 +73,5 @@ def export_onnx(pretrained_model_path):
     print("ONNX Success.")
 
 if __name__ == "__main__":
-    pretrained_model_path = r'/data2/yanhailong/IR-Based/ICCV2025/MobileIE/experiments/lle/lle_best_slim.pkl'
+    pretrained_model_path = r'./pretrain/lolv1_best_slim.pkl'
     export_onnx(pretrained_model_path)
