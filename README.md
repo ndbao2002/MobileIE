@@ -6,12 +6,13 @@ Ao Li<sup>1</sup>&nbsp;
 Xiangtao Zhang<sup>1</sup>&nbsp;
 Zhe Liu<sup>1</sup>&nbsp;
 Zenglin Shi<sup>2</sup>&nbsp;
-Ce Zhu<sup>1</sup><br>
+Ce Zhu<sup>1</sup>&nbsp;
 Le Zhang<sup>1,†</sup>&nbsp;
 
 <sup>1</sup> UESTC&nbsp;&nbsp; <sup>2</sup> Hefei University of Technology
-<hr>
 <sup>†</sup> Corresponding authors.  
+
+<hr>
 
 <h4>
 <a href="https://www.arxiv.org/pdf/2507.01838">📄 arXiv Paper</a> &nbsp; 
