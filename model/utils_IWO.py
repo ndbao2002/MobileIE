@@ -1,12 +1,10 @@
 import torch
 import torch.nn as nn
-import torch
-import torch.nn as nn
 import torch.nn.functional as F
 
-class ConvRep5(nn.Module):
+class MBRConv5(nn.Module):
     def __init__(self, in_channels, out_channels, rep_scale=4):
-        super(ConvRep5, self).__init__()
+        super(MBRConv5, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.conv = nn.Conv2d(in_channels, out_channels * rep_scale, 5, 1, 2)
@@ -155,9 +153,9 @@ class ConvRep5(nn.Module):
 
 
 ##############################################################################################################
-class ConvRep3(nn.Module):
+class MBRConv3(nn.Module):
     def __init__(self, in_channels, out_channels, rep_scale=4):
-        super(ConvRep3, self).__init__()
+        super(MBRConv3, self).__init__()
         
         self.in_channels = in_channels
         self.out_channels = out_channels
@@ -290,9 +288,9 @@ class ConvRep3(nn.Module):
         return weight, bias
     
 ######################################################################################################
-class ConvRepPoint(nn.Module):
+class MBRConv1(nn.Module):
     def __init__(self, in_channels, out_channels, rep_scale=4):
-        super(ConvRepPoint, self).__init__()
+        super(MBRConv1, self).__init__()
         
         self.in_channels = in_channels
         self.out_channels = out_channels
