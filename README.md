@@ -1,7 +1,20 @@
-<h1 align="center">MobileIE: An Extremely Lightweight and Effective ConvNet for Real-Time Image Enhancement on Mobile Devices-ICCV 2025</h1>
+<h1 align="center">[ICCV 2025]MobileIE: An Extremely Lightweight and Effective ConvNet for Real-Time Image Enhancement on Mobile Devices</h1>
 <div align="center">
 <hr>
+[Hailong Yan]()<sup>1</sup>&nbsp;
+[Ao Li]()<sup>1</sup>&nbsp;
+[Xiangtao Zhang]()<sup>1</sup>&nbsp;
+[Zhe Liu]()<sup>1</sup>&nbsp;
+[Zenglin Shi]()<sup>2</sup>&nbsp;
+[Ce Zhu]()<sup>2</sup><br>
+[Bo Li]()<sup>1,†</sup>&nbsp;
 
+<sup>1</sup> UESTCy&nbsp;&nbsp;<sup>2</sup> Hefei University of Technology, Ltd
+<sup>†</sup> Corresponding authors.  
+
+<h4>
+<a href="https://www.arxiv.org/pdf/2507.01838">📄 arXiv Paper</a> &nbsp; 
+</h4>
 ---
 
 > **Abstract:** *Recent advancements in deep neural networks have driven significant progress in image enhancement (IE). However, deploying deep learning models on resource-constrained platforms, such as mobile devices, remains challenging due to high computation and memory demands. To address these challenges and facilitate real-time IE on mobile, we introduce an extremely lightweight Convolutional Neural Network (CNN) framework with around 4K parameters. Our approach integrates reparameterization with an Incremental Weight Optimization strategy to ensure efficiency. Additionally, we enhance performance with a Feature Self-Transform module and a Hierarchical Dual-Path Attention mechanism, optimized with a Local Variance-Weighted loss. With this efficient framework, we are the first to achieve real-time IE inference at up to 1,100 frames per second (FPS) while delivering competitive image quality, achieving the best trade-off between speed and performance across multiple IE tasks.*
