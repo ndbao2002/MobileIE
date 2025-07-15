@@ -57,9 +57,9 @@ def inference_and_save_results(interpreter, input_image_folder, output_image_fol
         pil_img.save(output_image_path)
 
 def main():
-    model_path = '/data2/yanhailong/IR-Based/ICCV2025/MobileIE/LLE.tflite'  
-    input_image_folder = '/data2/yanhailong/IR-Based/Datasets/lowlight/lowlight/LOLdataset/eval15/low'  
-    output_image_folder = '/data2/yanhailong/IR-Based/ICCV2025/MobileIE/experiments/results'  
+    model_path = './LLE.tflite'  
+    input_image_folder = './lowlight/LOLdataset/eval15/low'  
+    output_image_folder = './experiments/results'  
 
     interpreter = load_model(model_path)
     print_model_structure(interpreter)
