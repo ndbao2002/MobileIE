@@ -2,7 +2,7 @@
 
 This repository contains the official implementation for ICCV 2025 paper:
 
-MobileIE: An Extremely Lightweight and Effective ConvNet for Real-Time Image Enhancement on Mobile Devices[[arxiv]](https://arxiv.org/abs/2507.01838)
+[MobileIE: An Extremely Lightweight and Effective ConvNet for Real-Time Image Enhancement on Mobile Devices][[arxiv]](https://arxiv.org/abs/2507.01838)
 
 ---
 
