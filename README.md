@@ -1,2 +1,44 @@
 # MobileIE
-[ICCV2025] Implementation of "MobileIE: An Extremely Lightweight and Effective ConvNet for Real-Time Image Enhancement on Mobile Devices"
+
+This repository contains the official implementation for ICCV 2025 paper:
+
+[MobileIE: An Extremely Lightweight and Effective ConvNet for Real-Time Image Enhancement on Mobile Devices][[arxiv]](https://arxiv.org/abs/2507.01838)
+
+### Preparation
+
+1. Replace the dataset path in the config file.
+2. If you want to train the model, set the type in config to "original" and need_slims to "false".
+3. If you want to test the pretrain model, set the type in config to "re-parameterized", need_slims to "true", and load the re-parameterized pre-trained model. You can also run inference with TFLite model by executing "test_TFlite.py".
+4. You can use the TFLite model and import it into AI Benchmark (https://ai-benchmark.com/) to obtain the inference speed on mobile devices.
+
+### Train
+
+```bash
+python main.py -task train -model_task lle -device cuda
+```
+
+### Test
+
+```bash
+python main.py -task test -model_task lle -device cuda
+```
+
+### Demo
+
+```bash
+python main.py -task demo -model_task lle -device cuda
+```
+
+### Citation
+
+If you find the code helpful in your research or work, please cite the following paper(s).
+
+```
+@InProceedings{yan2025mobileie,
+    author    = {Yan, Hailong and Li, Ao and Zhang, Xiangtao and Liu, Zhe and Shi, Zenglin and Zhu, Ce and Zhang, Le},
+    title     = {MobileIE: An Extremely Lightweight and Effective ConvNet for Real-Time Image Enhancement on Mobile Devices},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision},
+    month     = {October},
+    year      = {2025},
+}
+```
