@@ -1,9 +1,9 @@
 import torch.nn as nn
 import torch
 from .utils import (
-    ConvRep5,
-    ConvRep3,
-    ConvRepPoint,
+    MBRConv5,
+    MBRConv3,
+    MBRConv1,
     DropBlock,
     FST,
     FSTS,
@@ -15,27 +15,27 @@ class MobileIEISPNet(nn.Module):
         self.channels = channels
         self.head = FST(
             nn.Sequential(
-                ConvRep5(4, channels, rep_scale=rep_scale),
+                MBRConv5(4, channels, rep_scale=rep_scale),
                 nn.PReLU(channels),
-                ConvRep3(channels, channels, rep_scale=rep_scale)
+                MBRConv3(channels, channels, rep_scale=rep_scale)
             ),
             channels
         )
         self.body = FST(
-            ConvRep3(channels, channels, rep_scale=rep_scale),
+            MBRConv3(channels, channels, rep_scale=rep_scale),
             channels
         )
         self.att = nn.Sequential(
             nn.AdaptiveAvgPool2d(1),
-            ConvRepPoint(channels, channels, rep_scale=rep_scale),
+            MBRConv1(channels, channels, rep_scale=rep_scale),
             nn.Sigmoid()
         )
         self.att1= nn.Sequential( 
-            ConvRepPoint(1, channels, rep_scale=rep_scale),
+            MBRConv1(1, channels, rep_scale=rep_scale),
             nn.Sigmoid()
         )
-        self.tail = nn.Sequential(nn.PixelShuffle(2), ConvRep3(3, 3, rep_scale=rep_scale))
-        self.tail_warm = ConvRep3(channels, 4, rep_scale=rep_scale)
+        self.tail = nn.Sequential(nn.PixelShuffle(2), MBRConv3(3, 3, rep_scale=rep_scale))
+        self.tail_warm = MBRConv3(channels, 4, rep_scale=rep_scale)
         self.drop = DropBlock(3)
 
     def forward(self, x):
@@ -57,7 +57,7 @@ class MobileIEISPNet(nn.Module):
         net_slim = MobileIEISPNetS(self.channels)
         weight_slim = net_slim.state_dict()
         for name, mod in self.named_modules():
-            if isinstance(mod, ConvRep3) or isinstance(mod, ConvRep5) or isinstance(mod, ConvRepPoint):
+            if isinstance(mod, MBRConv3) or isinstance(mod, MBRConv5) or isinstance(mod, MBRConv1):
                 if '%s.weight' % name in weight_slim:
                     w, b = mod.slim()
                     weight_slim['%s.weight' % name] = w 
