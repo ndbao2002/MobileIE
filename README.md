@@ -10,7 +10,6 @@ Ce Zhu<sup>1</sup>&nbsp;
 Le Zhang<sup>1,†</sup>&nbsp;
 
 <sup>1</sup> UESTC&nbsp;&nbsp; <sup>2</sup> Hefei University of Technology
-
 <sup>†</sup> Corresponding authors.  
 
 <hr>
