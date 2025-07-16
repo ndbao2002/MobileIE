@@ -33,7 +33,7 @@
 
 1. Replace the dataset path in the config file.
 2. If you want to train the model, set the type in config to "original" and need_slims to "false".
-3. If you want to test the pretrain model, set the type in config to "re-parameterized", need_slims to "true", and load the re-parameterized pre-trained model. You can also run inference with TFLite model by executing "test_TFlite.py".
+3. If you want to test the pretrain model, set the type in config to "re-parameterized", need_slims to "true", and load the re-parameterized pre-trained model. You can also run inference with TFLite model by executing "test_TFLite_RGB.py/test_TFLite_ISP.py".
 4. You can use the TFLite model and import it into AI Benchmark (https://ai-benchmark.com/) to obtain the inference speed on mobile devices.
 
 ### Train
