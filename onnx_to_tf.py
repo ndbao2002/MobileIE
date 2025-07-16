@@ -3,7 +3,7 @@ from onnx_tf.backend import prepare
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-onnx_model_path = '/data2/yanhailong/IR-Based/ICCV2025/MobileIE/ISP.onnx'
+onnx_model_path = './LLE.onnx'
 onnx_model = onnx.load(onnx_model_path)
 
 onnx.checker.check_model(onnx_model)
