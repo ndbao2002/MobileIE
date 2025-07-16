@@ -54,7 +54,7 @@ python main.py -task test -model_task lle -device cuda
 python main.py -task demo -model_task lle -device cuda
 ```
 
-## Contact
+### Contact
 If you have any questions, please contact me by e-mail (yanhailong@std.uestc.edu.cn; yhl00825@163.com).
 
 ### Citation
