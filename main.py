@@ -9,7 +9,6 @@ from loss import import_loss
 from model import import_model
 import multiprocessing as mp
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '5'
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)

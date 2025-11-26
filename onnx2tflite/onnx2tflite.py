@@ -1,5 +1,4 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 from onnx2tflite.converter import onnx_converter
 onnx_path = "/data2/yanhailong/IR-Based/ICCV2025/MobileIE/LLE.onnx" 
 

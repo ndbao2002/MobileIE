@@ -47,13 +47,12 @@ def opt_format(opt):
     opt.config = r'{}/config/{}.yaml'.format(opt.root, opt.model_task)
     opt.config = load_yaml(opt.config)
 
-    proper_time = str(datetime.now()).split('.')[0].replace(':', '-')
+    proper_time = str(datetime.now()).split(' ')[0]
 
     opt.config['exp_name'] = '{}_{}'.format(opt.task, opt.config['exp_name'])
 
     opt.experiments = r'{}/experiments/{}'.format(opt.root, '{} {}'.format(proper_time, opt.config['exp_name']))
-    if not os.path.exists(opt.experiments):
-        os.mkdir(opt.experiments)
+    os.makedirs(opt.experiments, exist_ok = True)
 
     config_path = r'{}/config.yaml'.format(opt.experiments)
     save_yaml(config_path, opt.config)
@@ -62,7 +61,7 @@ def opt_format(opt):
         opt.save_image = True
         opt.save_image_dir = r'{}/{}'.format(opt.experiments, 'images')
         if not os.path.exists(opt.save_image_dir):
-            os.mkdir(opt.save_image_dir)
+            os.makedirs(opt.save_image_dir, exist_ok = True)
 
     opt.log_path = r'{}/logger.log'.format(opt.experiments)
 
@@ -70,6 +69,6 @@ def opt_format(opt):
         opt.save_model = True
         opt.save_model_dir = r'{}/{}'.format(opt.experiments, 'models')
         if not os.path.exists(opt.save_model_dir):
-            os.mkdir(opt.save_model_dir)
+            os.makedirs(opt.save_model_dir, exist_ok = True)
 
     return opt

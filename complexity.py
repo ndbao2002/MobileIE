@@ -3,7 +3,6 @@ import time
 from thop import profile, clever_format
 from model import lle
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 width = 640
 height = 480

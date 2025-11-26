@@ -22,7 +22,7 @@ class ISPData(torch.utils.data.Dataset):
         raw = raw.to(self.opt.device)
 
         if self.rgb_path: # gt_path -> train/test not demo
-            rgb = Image.open(os.path.join(self.rgb_path, self.img_li[index]))
+            rgb = Image.open(os.path.join(self.rgb_path, self.img_li[index].replace('png', 'jpg')))
             rgb = np.array(rgb).transpose([2, 0, 1])
             rgb = rgb.astype(np.float32) / 255
 
