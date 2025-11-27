@@ -8,7 +8,7 @@ train:
   train_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/train/canon 
   valid_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/huawei_raw 
   valid_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/canon 
-  batch_size: 6
+  batch_size: 16
   epoch: 2000
   start_epoch: 0
   lr: 1e-3
