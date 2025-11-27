@@ -10,6 +10,7 @@ train:
   valid_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/canon 
   batch_size: 6
   epoch: 2000
+  start_epoch: 0
   lr: 1e-3
   num_workers: 4
   save_every: 20
@@ -27,7 +28,8 @@ demo:
 
 model:
   type: original # [original, re-parameterized]
-  pretrained: false
+  pretrained: false # change this for loading weights
+  pretrained_date: null
   need_slim: false #true 
   rep_scale: 4
   channels: 12

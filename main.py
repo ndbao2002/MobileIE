@@ -51,11 +51,16 @@ def train(opt, logger):
     # Phase Training
     best_psnr = 0
     epochs = int(opt.config['train']['epoch'])
+    start_epochs = int(opt.config['train']['start_epoch'])
+    if start_epochs is None:
+        start_epochs = 0
     optim = torch.optim.Adam(net.parameters(), lr, weight_decay=0)
     lr_sch = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optim, 50, 2, 1e-7)
+    for _ in range(start_epochs): # Skip learning rate steps
+        lr_sch.step()
 
     logger.info('start training')
-    for epo in range(epochs):
+    for epo in range(start_epochs, epochs):
         loss_li = []
         test_psnr = []
         net.train()

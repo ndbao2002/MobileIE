@@ -47,7 +47,10 @@ def opt_format(opt):
     opt.config = r'{}/config/{}.yaml'.format(opt.root, opt.model_task)
     opt.config = load_yaml(opt.config)
 
-    proper_time = str(datetime.now()).split(' ')[0]
+    if opt.config['model']['pretrained_date'] is not None:
+        proper_time = opt.config['model']['pretrained_date']
+    else:
+        proper_time = str(datetime.now()).split(' ')[0]
 
     opt.config['exp_name'] = '{}_{}'.format(opt.task, opt.config['exp_name'])
 
