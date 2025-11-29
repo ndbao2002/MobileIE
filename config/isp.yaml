@@ -27,9 +27,9 @@ demo:
   num_workers: 0
 
 model:
-  type: original # [original, re-parameterized]
-  pretrained: false # change this for loading weights
+  type: re-parameterized # [original, re-parameterized]
+  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2025-11-27 train_isp/models/model_best_slim.pkl # change this for loading weights
   pretrained_date: null
-  need_slim: false #true 
+  need_slim: true # [false, true] 
   rep_scale: 4
   channels: 12
