@@ -27,8 +27,12 @@ def import_model(opt):
     model = model.to(opt.device)
 
     if opt.config['model']['pretrained']:
-        #model.load_state_dict(torch.load(opt.config['model']['pretrained']))
-        model.load_state_dict(torch.load(opt.config['model']['pretrained']), strict=False)
+        if opt.task == 'train' and opt.config['model']['pretrained_date'] is not None:
+            pretrained_path = r'{}/model_pre.pkl'.format(opt.save_model_dir)
+            model.load_state_dict(torch.load(pretrained_path), strict=False)
+        else:
+            #model.load_state_dict(torch.load(opt.config['model']['pretrained']))
+            model.load_state_dict(torch.load(opt.config['model']['pretrained']), strict=False)
 
     if opt.config['model']['type'] == 'original' and opt.config['model']['need_slim'] is True:
         model = model.slim().to(opt.device)

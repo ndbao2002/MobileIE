@@ -9,6 +9,7 @@ from loss import import_loss
 from model import import_model
 import multiprocessing as mp
 import os
+import yaml
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -29,7 +30,7 @@ def train(opt, logger):
 
     net.train()
     # Phase Warming-up
-    if opt.config['train']['warmup']:
+    if opt.config['train']['warmup'] and opt.config['model']['pretrained_date'] is None:
         logger.info('start warming-up')
 
         optim_warm = torch.optim.Adam(net.parameters(), lr_warmup, weight_decay=0)
@@ -50,17 +51,21 @@ def train(opt, logger):
 
     # Phase Training
     best_psnr = 0
+    start_epoch = 0
+    # Just to load best performance if pretrained model is given, we already load the weights in import_model
+    if opt.config['model']['pretrained_date'] is not None:
+        best_psnr = opt.config['model']['resume_best_psnr']
+        start_epoch = opt.config['model']['resume_epoch']
+        logger.info('resuming training from epoch {}, best psnr {}'.format(start_epoch, best_psnr))
+
     epochs = int(opt.config['train']['epoch'])
-    start_epochs = int(opt.config['train']['start_epoch'])
-    if start_epochs is None:
-        start_epochs = 0
     optim = torch.optim.Adam(net.parameters(), lr, weight_decay=0)
     lr_sch = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optim, 50, 2, 1e-7)
-    for _ in range(start_epochs): # Skip learning rate steps
+    for _ in range(start_epoch): # Skip learning rate steps
         lr_sch.step()
 
     logger.info('start training')
-    for epo in range(start_epochs, epochs):
+    for epo in range(start_epoch, epochs):
         loss_li = []
         test_psnr = []
         net.train()
@@ -85,6 +90,14 @@ def train(opt, logger):
 
         if (epo+1) % int(opt.config['train']['save_every']) == 0:
             torch.save(net.state_dict(), r'{}/model_{}.pkl'.format(opt.save_model_dir, epo+1))
+            # Save anchored for easing the resumption of training
+            torch.save(net.state_dict(), r'{}/model_pre.pkl'.format(opt.save_model_dir))
+            current_perf_data = {
+                'current_epoch': epo + 1,
+                'best_psnr': float(best_psnr),
+            }
+            with open(r'{}/current_performance.yml'.format(opt.save_model_dir), 'w') as f:
+                yaml.dump(current_perf_data, f)
 
         logger.info('epoch: {}, training loss: {}, validation psnr: {}'.format(
             epo+1, sum(loss_li) / len(loss_li), sum(test_psnr) / len(test_psnr)

@@ -73,5 +73,10 @@ def opt_format(opt):
         opt.save_model_dir = r'{}/{}'.format(opt.experiments, 'models')
         if not os.path.exists(opt.save_model_dir):
             os.makedirs(opt.save_model_dir, exist_ok = True)
+        if opt.config['model']['pretrained_date'] is not None:
+            with open(r'{}/current_performance.yml'.format(opt.save_model_dir), 'r') as f:
+                perf_data = yaml.safe_load(f)
+                opt.config['model']['resume_epoch'] = perf_data['current_epoch']
+                opt.config['model']['resume_best_psnr'] = perf_data['best_psnr']
 
     return opt

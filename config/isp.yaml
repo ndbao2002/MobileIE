@@ -1,7 +1,7 @@
 exp_name: isp 
 
 train:
-  warmup: false # [true, false]
+  warmup: true # [true, false]
   warmup_epoch: 10
   lr_warmup: 1e-6
   train_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/train/huawei_raw 
@@ -10,7 +10,6 @@ train:
   valid_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/canon 
   batch_size: 16
   epoch: 1000
-  start_epoch: 160
   lr: 1e-3
   num_workers: 2
   save_every: 20
@@ -28,8 +27,8 @@ demo:
 
 model:
   type: original # [original, re-parameterized]
-  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2025-11-27 train_isp/models/model_160.pkl # change this for loading weights
-  pretrained_date: 2025-11-27
+  pretrained: null # change this for loading weights
+  pretrained_date: null # also change this (prioritize for training resumption)
   need_slim: false # [false, true] 
   rep_scale: 4
   channels: 12
