@@ -27,8 +27,8 @@ demo:
 
 model:
   type: original # [original, re-parameterized]
-  pretrained: null # change this for loading weights
-  pretrained_date: null # also change this (prioritize for training resumption)
+  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2025-12-04 train_isp/models/model_pre.pkl # change this for training resumption/testing
+  pretrained_date: 2025-12-04 # also change this (prioritize for training resumption)
   need_slim: false # [false, true] 
   rep_scale: 4
   channels: 12
