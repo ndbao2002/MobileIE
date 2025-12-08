@@ -1,4 +1,4 @@
-exp_name: isp 
+exp_name: isp_v2 
 
 train:
   warmup: true # [true, false]
@@ -26,10 +26,10 @@ demo:
   num_workers: 0
 
 model:
-  name: mobileie # [retinex, mobileie]
+  name: retinex # [retinex, mobileie]
   type: original # [original, re-parameterized]
-  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2025-12-04 train_isp/models/model_pre.pkl # change this for training resumption/testing
-  pretrained_date: 2025-12-04 # also change this (prioritize for training resumption)
+  pretrained: false # change this for training resumption/testing
+  pretrained_date: null # also change this (prioritize for training resumption)
   need_slim: false # [false, true] 
   rep_scale: 4
   channels: 12

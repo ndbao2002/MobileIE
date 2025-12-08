@@ -350,3 +350,109 @@ class DropBlock(nn.Module):
         mask = 1 - (torch.rand_like(x[:, :1]) >= self.p).float()
         mask = nn.functional.max_pool2d(mask, self.block_size, 1, self.block_size // 2)
         return x * (1 - mask)
+###################################################################################
+class RetinexFST(nn.Module):
+    def __init__(self, channels, rep_scale=4):
+        super(RetinexFST, self).__init__()
+        self.conv1 = MBRConv3(channels, channels, rep_scale=rep_scale)
+        
+        # High-Freq Extractor (Reflectance Prior)
+        self.detail_extract = MBRConv3(channels, channels, rep_scale=rep_scale)
+        
+        # Illumination Gate (Global)
+        self.gate = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
+            MBRConv1(channels, channels, rep_scale=rep_scale),
+            nn.Sigmoid()
+        )
+        self.conv2 = MBRConv1(channels, channels, rep_scale=rep_scale)
+
+    def forward(self, x):
+        identity = x
+        x_tr = self.conv1(x)
+        details = self.detail_extract(x_tr)
+        illumination = self.gate(x_tr)
+        
+        # Retinex Enhancement: Boost details based on global light
+        out = self.conv2(x_tr + (details * illumination))
+        return identity + out
+    
+class RetinexFSTS(nn.Module):
+    def __init__(self, channels):
+        super(RetinexFSTS, self).__init__()
+        self.conv1 = nn.Conv2d(channels, channels, 3, 1, 1)
+        
+        # High-Freq Extractor (Reflectance Prior)
+        self.detail_extract = nn.Conv2d(channels, channels, 3, 1, 1)
+        
+        # Illumination Gate (Global)
+        self.gate = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
+            nn.Conv2d(channels, channels, 1),
+            nn.Sigmoid()
+        )
+        self.conv2 = nn.Conv2d(channels, channels, 1)
+
+    def forward(self, x):
+        identity = x
+        x_tr = self.conv1(x)
+        details = self.detail_extract(x_tr)
+        illumination = self.gate(x_tr)
+        
+        # Retinex Enhancement: Boost details based on global light
+        out = self.conv2(x_tr + (details * illumination))
+        return identity + out
+###################################################################################
+class RetinexHDPA(nn.Module):
+    def __init__(self, channels, rep_scale=4):
+        super(RetinexHDPA, self).__init__()
+        
+        # Global Illumination Path
+        self.global_pool = nn.AdaptiveAvgPool2d(16) # Maintain vignette info
+        self.global_fc = nn.Sequential(
+            MBRConv1(channels, channels // 2, rep_scale=rep_scale),
+            nn.PReLU(),
+            MBRConv1(channels // 2, channels, rep_scale=rep_scale),
+            nn.Sigmoid()
+        )
+        
+        # Local Reflectance Path
+        self.local_pool = nn.MaxPool2d(3, stride=1, padding=1)
+        self.local_fc = nn.Sequential(
+            MBRConv1(channels, channels // 2, rep_scale=rep_scale),
+            nn.PReLU(),
+            MBRConv1(channels // 2, channels, rep_scale=rep_scale),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        g = F.interpolate(self.global_fc(self.global_pool(x)), size=x.shape[2:], mode='bilinear')
+        l = self.local_fc(self.local_pool(x))
+        return x * g * l
+    
+class RetinexHDPAS(nn.Module):
+    def __init__(self, channels):
+        super(RetinexHDPAS, self).__init__()
+        
+        # Global Illumination Path
+        self.global_pool = nn.AdaptiveAvgPool2d(16) # Maintain vignette info
+        self.global_fc = nn.Sequential(
+            nn.Conv2d(channels, channels // 2, 1),
+            nn.PReLU(),
+            nn.Conv2d(channels // 2, channels, 1),
+            nn.Sigmoid()
+        )
+        
+        # Local Reflectance Path
+        self.local_pool = nn.MaxPool2d(3, stride=1, padding=1)
+        self.local_fc = nn.Sequential(
+            nn.Conv2d(channels, channels // 2, 1),
+            nn.PReLU(),
+            nn.Conv2d(channels // 2, channels, 1),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        g = F.interpolate(self.global_fc(self.global_pool(x)), size=x.shape[2:], mode='bilinear')
+        l = self.local_fc(self.local_pool(x))
+        return x * g * l

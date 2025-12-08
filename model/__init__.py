@@ -2,17 +2,22 @@ import torch
 from importlib import import_module
 from .lle import MobileIELLENet, MobileIELLENetS
 from .isp import MobileIEISPNet, MobileIEISPNetS
+from .isp_v2 import MobileRetinexISPNet, MobileRetinexISPNetS
 
 __all__ = {
     'MobileIELLENet',
     'MobileIELLENetS',
     'MobileIEISPNet', 
     'MobileIEISPNetS',
+    'MobileRetinexISPNet',
+    'MobileRetinexISPNetS',
     'import_model'
 }
 
 def import_model(opt):
     model_name = 'MobileIE'+opt.model_task.upper()
+    if opt.config['model']['name'] == 'retinex':
+        model_name = 'MobileRetinexISP'
     kwargs = {'channels': opt.config['model']['channels']}
 
     if opt.config['model']['type'] == 're-parameterized':
