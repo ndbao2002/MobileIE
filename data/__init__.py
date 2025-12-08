@@ -13,7 +13,7 @@ __all__ = {
 
 
 def import_loader(opt):
-    dataset_name = opt.model_task.upper().replace('_V2', '') + 'Data'
+    dataset_name = opt.model_task.upper()+'Data'
     dataset = getattr(import_module('data'), dataset_name)
 
     if opt.task == 'train':

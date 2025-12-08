@@ -17,7 +17,7 @@ __all__ = {
 def import_model(opt):
     model_name = 'MobileIE'+opt.model_task.upper()
     if opt.config['model']['name'] == 'retinex':
-        model_name = 'MobileRetinexISP'
+        model_name = 'MobileRetinex'+opt.model_task.upper()
     kwargs = {'channels': opt.config['model']['channels']}
 
     if opt.config['model']['type'] == 're-parameterized':

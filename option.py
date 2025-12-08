@@ -17,7 +17,7 @@ def get_option():
         '-model_task',
         default='isp',
         type=str,
-        choices=['isp', 'isp_v2', 'lle', 'sr'],
+        choices=['isp', 'lle', 'sr'],
         help='the model of the task'
     )
     parser.add_argument(
@@ -25,6 +25,12 @@ def get_option():
         default='cuda',
         type=str,
         help='choose the device to run the model'
+    )
+    parser.add_argument(
+        '-config_name',
+        type=str,
+        help='choose the config file name',
+        required=False
     )
     opt = parser.parse_args()
     opt = opt_format(opt)
@@ -44,7 +50,7 @@ def save_yaml(path, file_dict):
 
 def opt_format(opt):
     opt.root = os.getcwd()
-    opt.config = r'{}/config/{}.yaml'.format(opt.root, opt.model_task)
+    opt.config = r'{}/config/{}.yaml'.format(opt.root, opt.config_name if opt.config_name else opt.model_task)
     opt.config = load_yaml(opt.config)
 
     if opt.config['model']['pretrained_date'] is not None:
