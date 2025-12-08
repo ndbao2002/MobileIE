@@ -35,7 +35,8 @@ class MobileRetinexISPNet(nn.Module):
         self.tail = nn.Sequential(
             MBRConv1(channels, channels, rep_scale=rep_scale),
             nn.PixelShuffle(2),
-            MBRConv1(channels // 4, out_channels, rep_scale=rep_scale)
+            MBRConv1(channels // 4, out_channels, rep_scale=rep_scale),
+            nn.Sigmoid()  # Ensure output is in [0, 1] range
         )
         self.tail_warm = MBRConv3(channels, 4, rep_scale=rep_scale)
         self.drop = DropBlock(3)
