@@ -17,7 +17,7 @@ def get_option():
         '-model_task',
         default='isp',
         type=str,
-        choices=['isp', 'lle', 'sr'],
+        choices=['isp', 'isp_v2', 'lle', 'sr'],
         help='the model of the task'
     )
     parser.add_argument(
