@@ -99,7 +99,8 @@ class MobileRetinexISPNetS(nn.Module):
         self.tail = nn.Sequential(
             nn.Conv2d(channels, channels, 1),
             nn.PixelShuffle(2),
-            nn.Conv2d(channels // 4, out_channels, 1)
+            nn.Conv2d(channels // 4, out_channels, 1),
+            nn.Sigmoid()  # Ensure output is in [0, 1] range
         )
  
     def forward(self, x):
