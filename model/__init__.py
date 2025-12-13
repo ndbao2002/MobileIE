@@ -37,7 +37,7 @@ def import_model(opt):
             model.load_state_dict(torch.load(pretrained_path), strict=False)
         else:
             #model.load_state_dict(torch.load(opt.config['model']['pretrained']))
-            model.load_state_dict(torch.load(opt.config['model']['pretrained']), strict=False)
+            model.load_state_dict(torch.load(opt.config['model']['pretrained'], map_location=opt.device), strict=False)
 
     if opt.config['model']['type'] == 'original' and opt.config['model']['need_slim'] is True:
         model = model.slim().to(opt.device)
