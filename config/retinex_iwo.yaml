@@ -1,4 +1,4 @@
-exp_name: isp_v2 
+exp_name: retinex_iwo 
 
 train:
   warmup: true # [true, false]
