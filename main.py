@@ -58,6 +58,10 @@ def train(opt, logger):
         start_epoch = opt.config['model']['resume_epoch']
         logger.info('resuming training from epoch {}, best psnr {}'.format(start_epoch, best_psnr))
 
+    if 'iwo' in opt.config and opt.config['iwo']['start_over'] is False:
+        start_epoch += opt.config['iwo']['continue_from_epoch']
+        logger.info('resuming training from epoch {}, best psnr {}'.format(start_epoch, best_psnr))
+
     epochs = int(opt.config['train']['epoch'])
     optim = torch.optim.Adam(net.parameters(), lr, weight_decay=0)
     lr_sch = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optim, 50, 2, 1e-7)

@@ -1,7 +1,7 @@
 exp_name: retinex_iwo 
 
 train:
-  warmup: true # [true, false]
+  warmup: false # [true, false]
   warmup_epoch: 10
   lr_warmup: 1e-6
   train_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/train/huawei_raw 
@@ -14,6 +14,10 @@ train:
   num_workers: 2
   save_every: 10
   save_slim: true 
+
+iwo:
+  start_over: false # [true, false]
+  continue_from_epoch: 1000 # This only need for IWO training resumption
 
 test:
   test_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/huawei_raw
@@ -28,8 +32,8 @@ demo:
 model:
   name: retinex # [retinex, mobileie]
   type: original # [original, re-parameterized]
-  pretrained: true # change this for training resumption/testing
-  pretrained_date: 2025-12-24 # also change this (prioritize for training resumption)
+  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2025-12-08 train_isp_v2/models/model_1000.pkl # change this for training resumption/testing
+  pretrained_date: null # also change this (prioritize for training resumption)
   need_slim: false # [false, true] 
   rep_scale: 4
   channels: 12
