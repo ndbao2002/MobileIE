@@ -32,8 +32,8 @@ demo:
 model:
   name: retinex # [retinex, mobileie]
   type: original # [original, re-parameterized]
-  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2025-12-08 train_isp_v2/models/model_1000.pkl # change this for training resumption/testing
-  pretrained_date: null # also change this (prioritize for training resumption)
+  pretrained: true # change this for training resumption/testing
+  pretrained_date: 2026-01-07 # also change this (prioritize for training resumption)
   need_slim: false # [false, true] 
   rep_scale: 4
   channels: 12
