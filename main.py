@@ -57,8 +57,7 @@ def train(opt, logger):
         best_psnr = opt.config['model']['resume_best_psnr']
         start_epoch = opt.config['model']['resume_epoch']
         logger.info('resuming training from epoch {}, best psnr {}'.format(start_epoch, best_psnr))
-
-    if 'iwo' in opt.config and opt.config['iwo']['start_over'] is False:
+    elif 'iwo' in opt.config and opt.config['iwo']['start_over'] is False:
         start_epoch += opt.config['iwo']['continue_from_epoch']
         logger.info('resuming training from epoch {}, best psnr {}'.format(start_epoch, best_psnr))
 
