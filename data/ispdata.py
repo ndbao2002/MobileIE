@@ -19,7 +19,6 @@ class ISPData(torch.utils.data.Dataset):
         raw = raw.astype(np.float32) / 4095
 
         raw = torch.Tensor(np.array(raw))
-        raw = raw.to(self.opt.device)
 
         if self.rgb_path: # gt_path -> train/test not demo
             rgb = Image.open(os.path.join(self.rgb_path, self.img_li[index].replace('png', 'jpg')))
@@ -27,7 +26,6 @@ class ISPData(torch.utils.data.Dataset):
             rgb = rgb.astype(np.float32) / 255
 
             rgb = torch.Tensor(np.array(rgb))
-            rgb = rgb.to(self.opt.device)
 
             return raw, rgb, self.img_li[index].split('.')[0]
 

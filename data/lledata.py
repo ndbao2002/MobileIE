@@ -18,7 +18,6 @@ class LLEData(torch.utils.data.Dataset):
         inp = inp.astype(np.float32) / 255
 
         inp = torch.Tensor(np.array(inp))
-        inp = inp.to(self.opt.device)
 
         if self.gt_path: # gt_path -> train/test not demo
             gt = Image.open(os.path.join(self.gt_path, self.img_li[index]))
@@ -26,7 +25,6 @@ class LLEData(torch.utils.data.Dataset):
             gt = gt.astype(np.float32) / 255
 
             gt = torch.Tensor(np.array(gt))
-            gt = gt.to(self.opt.device)
 
             return inp, gt, self.img_li[index].split('.')[0]
         return inp, self.img_li[index].split('.')[0]

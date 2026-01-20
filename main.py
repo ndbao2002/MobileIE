@@ -39,6 +39,8 @@ def train(opt, logger):
         for epo in range(epochs):
             loss_li = []
             for img_inp, img_gt, _ in tqdm(train_loader, ncols=80, disable=DISABLE_TQDM):
+                img_inp = img_inp.to(opt.device)
+                img_gt = img_gt.to(opt.device)
                 optim_warm.zero_grad()
                 warmup_out1, warmup_out2 = net.forward_warm(img_inp)
                 loss = loss_warmup(img_inp, img_gt, warmup_out1, warmup_out2)
@@ -74,6 +76,8 @@ def train(opt, logger):
         test_psnr = []
         net.train()
         for img_inp, img_gt, _ in tqdm(train_loader, ncols=80, disable=DISABLE_TQDM):
+            img_inp = img_inp.to(opt.device)
+            img_gt = img_gt.to(opt.device)
             out = net(img_inp)
             loss = loss_training(out, img_gt)
             optim.zero_grad()
@@ -86,6 +90,8 @@ def train(opt, logger):
         net.eval()
         for img_inp, img_gt, _ in tqdm(valid_loader, ncols=80, disable=DISABLE_TQDM):
             with torch.no_grad():
+                img_inp = img_inp.to(opt.device)
+                img_gt = img_gt.to(opt.device)
                 out = net(img_inp)
                 mse = ((out - img_gt)**2).mean((2, 3))
                 psnr = (1 / mse).log10().mean() * 10
@@ -129,6 +135,8 @@ def test(opt, logger):
     for (img_inp, img_gt, img_name) in test_loader:
 
         with torch.no_grad():
+            img_inp = img_inp.to(opt.device)
+            img_gt = img_gt.to(opt.device)
             out = net(img_inp)
             mse = ((out - img_gt)**2).mean((2, 3))
             psnr = (1 / mse).log10().mean() * 10
@@ -151,6 +159,7 @@ def demo(opt, logger):
     for img_inp, img_name in demo_loader:
 
         with torch.no_grad():
+            img_inp = img_inp.to(opt.device)
             out = net(img_inp)
         out_img = (out.clip(0, 1)[0] * 255).permute([1, 2, 0]).cpu().numpy().astype(np.uint8)[..., ::-1]
         cv2.imwrite(r'{}/{}.png'.format(opt.save_image_dir, img_name[0]), out_img)
