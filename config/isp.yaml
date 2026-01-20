@@ -28,8 +28,8 @@ demo:
 model:
   name: mobileie # [retinex, mobileie]
   type: original # [original, re-parameterized]
-  pretrained: null # change this for training resumption/testing
-  pretrained_date: null # also change this (prioritize for training resumption)
+  pretrained: true # change this for training resumption/testing
+  pretrained_date: 2026-01-20 # also change this (prioritize for training resumption)
   need_slim: false # [false, true] 
   rep_scale: 4
   channels: 12

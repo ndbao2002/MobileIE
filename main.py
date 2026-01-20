@@ -11,6 +11,8 @@ import multiprocessing as mp
 import os
 import yaml
 
+DISABLE_TQDM = True
+
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
@@ -37,7 +39,7 @@ def train(opt, logger):
         epochs = opt.config['train']['warmup_epoch']
         for epo in range(epochs):
             loss_li = []
-            for img_inp, img_gt, _ in tqdm(train_loader, ncols=80):
+            for img_inp, img_gt, _ in tqdm(train_loader, ncols=80, disable=DISABLE_TQDM):
                 optim_warm.zero_grad()
                 warmup_out1, warmup_out2 = net.forward_warm(img_inp)
                 loss = loss_warmup(img_inp, img_gt, warmup_out1, warmup_out2)
@@ -72,7 +74,7 @@ def train(opt, logger):
         loss_li = []
         test_psnr = []
         net.train()
-        for img_inp, img_gt, _ in tqdm(train_loader, ncols=80):
+        for img_inp, img_gt, _ in tqdm(train_loader, ncols=80, disable=DISABLE_TQDM):
             out = net(img_inp)
             loss = loss_training(out, img_gt)
             optim.zero_grad()
@@ -83,7 +85,7 @@ def train(opt, logger):
 
         # Validation
         net.eval()
-        for img_inp, img_gt, _ in tqdm(valid_loader, ncols=80):
+        for img_inp, img_gt, _ in tqdm(valid_loader, ncols=80, disable=DISABLE_TQDM):
             with torch.no_grad():
                 out = net(img_inp)
                 mse = ((out - img_gt)**2).mean((2, 3))
