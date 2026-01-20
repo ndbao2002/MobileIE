@@ -7,7 +7,6 @@ from option import get_option
 from data import import_loader
 from loss import import_loss
 from model import import_model
-import multiprocessing as mp
 import os
 import yaml
 
@@ -160,8 +159,6 @@ def demo(opt, logger):
 
 
 if __name__ == "__main__":
-    mp.set_start_method('spawn')
-
     opt = get_option()
     logger = Logger(opt)
 
