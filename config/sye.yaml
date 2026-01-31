@@ -1,0 +1,35 @@
+exp_name: isp 
+
+train:
+  warmup: false # [true, false]
+  warmup_epoch: 10
+  lr_warmup: 1e-6
+  train_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/train/huawei_raw 
+  train_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/train/canon 
+  valid_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/huawei_raw 
+  valid_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/canon 
+  batch_size: 16
+  epoch: 200
+  lr: 1e-3
+  num_workers: 2
+  save_every: 20
+  save_slim: true 
+
+test:
+  test_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/huawei_raw
+  test_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/canon 
+  num_workers: 0
+  save: true
+
+demo:
+  demo_inp: ./traindata/isp/test/huawei_raw 
+  num_workers: 0
+
+model:
+  name: sye # [retinex, mobileie, sye]
+  type: original # [original, re-parameterized]
+  pretrained: null # change this for training resumption/testing
+  pretrained_date: null # also change this (prioritize for training resumption)
+  need_slim: false # [false, true] 
+  rep_scale: 4
+  channels: 12

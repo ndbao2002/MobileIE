@@ -4,6 +4,7 @@ from .lle import MobileIELLENet, MobileIELLENetS
 from .isp import MobileIEISPNet, MobileIEISPNetS
 from .retinex import MobileRetinexISPNet, MobileRetinexISPNetS
 from .retinex_v2 import MobileRetinexV2ISPNet, MobileRetinexV2ISPNetS
+from .sye import SYEISPNet, SYEISPNetS
 
 __all__ = {
     'MobileIELLENet',
@@ -14,6 +15,8 @@ __all__ = {
     'MobileRetinexISPNetS',
     'MobileRetinexV2ISPNet',
     'MobileRetinexV2ISPNetS',
+    'SYEISPNet',
+    'SYEISPNetS',
     'import_model'
 }
 
@@ -23,6 +26,8 @@ def import_model(opt):
         model_name = 'MobileRetinex'+opt.model_task.upper()
     elif opt.config['model']['name'] == 'retinex_v2':
         model_name = 'MobileRetinexV2'+opt.model_task.upper()
+    elif opt.config['model']['name'] == 'sye':
+        model_name = 'SYE'+opt.model_task.upper()
     kwargs = {'channels': opt.config['model']['channels']}
 
     if opt.config['model']['type'] == 're-parameterized':
