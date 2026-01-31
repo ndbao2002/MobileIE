@@ -7,6 +7,7 @@ from option import get_option
 from data import import_loader
 from loss import import_loss
 from model import import_model
+from evaluate import evaluate_folders
 import os
 import yaml
 
@@ -149,6 +150,13 @@ def test(opt, logger):
         logger.info('image name: {}, test psnr: {}'.format(img_name[0], psnr))
 
     logger.info('testing done, overall psnr: {}'.format(sum(psnr_list) / len(psnr_list)))
+
+    if 'evaluate' in opt.config['test'] and opt.config['test']['evaluate']:
+        logger.info('start evaluation against ground truth images')
+        target_dir = opt.config['test']['test_gt']
+        ref_dir = opt.save_image_dir
+        avg_psnr, avg_ssim = evaluate_folders(target_dir, ref_dir)
+        logger.info('evaluation done, average psnr: {}, average ssim: {}'.format(avg_psnr, avg_ssim))
 
 
 def demo(opt, logger):

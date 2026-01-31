@@ -20,6 +20,7 @@ test:
   test_gt: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/canon 
   num_workers: 0
   save: true
+  evaluate: true
 
 demo:
   demo_inp: ./traindata/isp/test/huawei_raw 
