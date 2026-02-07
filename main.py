@@ -24,7 +24,10 @@ def train(opt, logger):
     lr_warmup = float(opt.config['train']['lr_warmup'])
 
     loss_warmup = import_loss('warmup')
-    loss_training = import_loss(opt.model_task)
+
+    if opt.config['train'].get('use_sye_loss', False):
+        logger.info('using SYE loss for training')
+    loss_training = import_loss(opt.model_task, use_sye_loss=opt.config['train'].get('use_sye_loss', False))
     net = import_model(opt)
     # logger.info(net)
     num_params = count_parameters(net)
