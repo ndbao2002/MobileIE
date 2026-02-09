@@ -1,7 +1,7 @@
 exp_name: sye_original 
 
 train:
-  warmup: true # [true, false]
+  warmup: false # [true, false]
   warmup_epoch: 10
   lr_warmup: 1e-6
   train_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/train/huawei_raw 
