@@ -29,7 +29,7 @@ demo:
 model:
   name: sye # [retinex, mobileie]
   type: re-parameterized # [original, re-parameterized]
-  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2026-02-01 train_isp/models/model_best_slim.pkl # change this for training resumption/testing
+  pretrained: /media02/btlen05/ndbao/MobileIE/experiments/2026-02-10 train_sye_original/models/model_best_slim.pkl # change this for training resumption/testing
   pretrained_date: null # also change this (prioritize for training resumption)
   need_slim: true # [false, true] 
   rep_scale: 4
