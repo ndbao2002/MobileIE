@@ -1,4 +1,4 @@
-exp_name: isp 
+exp_name: sye_new 
 
 train:
   warmup: false # [true, false]
@@ -14,6 +14,8 @@ train:
   num_workers: 2
   save_every: 20
   save_slim: true 
+  lr_sch_t_0: 50
+  lr_sch_mult: 3
 
 test:
   test_inp: /media02/btlen05/ndbao/dataset/datasets/Zurich/test/huawei_raw
@@ -28,8 +30,8 @@ demo:
 model:
   name: sye # [retinex, mobileie, sye]
   type: original # [original, re-parameterized]
-  pretrained: true # change this for training resumption/testing
-  pretrained_date: 2026-02-01 # also change this (prioritize for training resumption)
+  pretrained: null # change this for training resumption/testing
+  pretrained_date: null # also change this (prioritize for training resumption)
   need_slim: false # [false, true] 
   rep_scale: 4
   channels: 12

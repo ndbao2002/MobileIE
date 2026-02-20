@@ -70,7 +70,9 @@ def train(opt, logger):
 
     epochs = int(opt.config['train']['epoch'])
     optim = torch.optim.Adam(net.parameters(), lr, weight_decay=0)
-    lr_sch = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optim, 50, 2, 1e-7)
+    scheduler_t_0 = int(opt.config['train'].get('lr_sch_t_0', 50))
+    scheduler_mult = float(opt.config['train'].get('lr_sch_mult', 2))
+    lr_sch = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optim, scheduler_t_0, scheduler_mult, 1e-7)
     for _ in range(start_epoch): # Skip learning rate steps
         lr_sch.step()
 
